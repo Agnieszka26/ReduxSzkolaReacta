@@ -12,14 +12,24 @@ interface IResponse {
   results: UserDate[];
 }
 
+interface IMesssage {
+  textContent: string;
+  type: "info" | "warning" | "danger" | "default";
+}
+
 interface IInitialState {
   response: IResponse | null;
   status: "success" | "loading" | "error";
+  message: IMesssage;
 }
 
 const initialState: IInitialState = {
   response: null,
   status: "loading",
+  message: {
+    textContent: "default",
+    type: "default",
+  },
 };
 
 export const getUsers = createAsyncThunk("users/getUsers", async () => {
@@ -58,6 +68,10 @@ const usersSlice = createSlice({
       //   "tu powinnam jakoś coś zrobić, żeby dodać jednoego usera do istniejącej array"
       // );
     },
+    changeMessage: (state, action) => {
+      console.log(" action.payload", action.payload);
+      // state.message = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -74,7 +88,7 @@ const usersSlice = createSlice({
   },
 });
 
-export const { reset, addMore } = usersSlice.actions;
+export const { reset, addMore, changeMessage } = usersSlice.actions;
 export const myusers = (state: RootState) => state.users;
 
 export default usersSlice.reducer;

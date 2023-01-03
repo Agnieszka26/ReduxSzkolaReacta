@@ -7,35 +7,48 @@ const Users = () => {
   const usersState = useSelector(myusers);
   const dispatch = useDispatch<AppDispatch>();
   const fetchUsersInComponent = () => {
-    dispatch(getUsers());
+    console.log("fetchUsersInComponent");
+    return dispatch(getUsers());
   };
+
+  // const fetchData = () => {
+
+  //    dispatch(getUsers());
+  // }
   // useEffect(() => {
 
-  //   dispatch(getUsers());
   // }, [dispatch]);
 
   const users = usersState?.response?.results;
   const isLoading = usersState.status;
-  console.log(users);
+  const renderUsers = () => {
+    return isLoading === "loading" ? (
+      <h2>LOADING . . . </h2>
+    ) : (
+      users?.map((user, i) => {
+        console.log(user);
+        return (
+          <div key={i + user.id?.value}>
+            <p>
+              {i + 1}. {user.name?.first} {user.name?.last}
+            </p>
+          </div>
+        );
+      })
+    );
+  };
   return (
     <>
       <h1>Users</h1>
-      {isLoading === "loading" ? (
+      {/* {isLoading === "loading" && <h2>LOADING . . . </h2>}; */}
+      {(users ? renderUsers() : fetchUsersInComponent(), renderUsers())}
+      {/* {isLoading === "loading" ? (
         <h2>LOADING . . . </h2>
       ) : usersState ? (
-        users?.map((user, i) => {
-          return (
-            <div key={user.id?.value}>
-              <p>
-                {i + 1}
-                {user.name?.first} {user.name?.last}
-              </p>
-            </div>
-          );
-        })
+        renderUsers()
       ) : (
         fetchUsersInComponent()
-      )}
+      )} */}
     </>
   );
 };
