@@ -1,11 +1,11 @@
-import {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
-import {AppDispatch} from "../../app/store";
-import {getUsers, reset, addMore} from "../../features/users/userSlice";
-import {getOneUser, myOneUser} from "../../features/users/myUserSlice";
+import { getUsers, reset } from "../../store/usersReducer/slice";
+// import {getOneUser, myOneUser} from "../../features/users/myUserSlice";
 import Heading from "../../typography/Heading/Heading";
 import Button from "../../atoms/Button/Button";
+import { AppDispatch } from "../../store";
 
 enum ButtonType {
   RESET = "reset",
@@ -16,17 +16,17 @@ enum ButtonType {
 const buttonData = [ButtonType.RESET, ButtonType.RELOAD, ButtonType.ADD];
 
 const Home = () => {
-  const userState = useSelector(myOneUser);
+  // const userState = useSelector(myOneUser);
   const dispatch = useDispatch<AppDispatch>();
 
   const renderButtonAction: Record<ButtonType, () => void> = {
     [ButtonType.RESET]: () => dispatch(reset()),
-    [ButtonType.RELOAD]: () => dispatch(getUsers()),
-    [ButtonType.ADD]: () => dispatch(addMore(userState.user.response)),
+    [ButtonType.RELOAD]: () => dispatch(getUsers(10)),
+    [ButtonType.ADD]: () => dispatch(getUsers(1)),
   };
 
   useEffect(() => {
-    dispatch(getOneUser());
+    // dispatch(getOneUser());
   }, [dispatch]);
 
   return (

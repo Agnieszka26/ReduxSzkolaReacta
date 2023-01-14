@@ -1,40 +1,30 @@
-import React, {useEffect} from "react";
-import type {AppDispatch} from "../../app/store";
-import {useSelector, useDispatch} from "react-redux";
-import {getUsers, myusers} from "../../features/users/userSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { getUsers } from "../../store/usersReducer/slice";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { useEffect } from "react";
 
 const Users = () => {
-  const usersState = useSelector(myusers);
-  const dispatch = useDispatch<AppDispatch>();
-  const fetchUsersInComponent = () => {
-    dispatch(getUsers());
-  };
-  // useEffect(() => {
+  const { response, pending } = useAppSelector((state) => state.users);
 
-  //   dispatch(getUsers());
-  // }, [dispatch]);
+  const dispatch = useAppDispatch();
+  // const fetchUsersInComponent = () => {
+  //   dispatch(getUsers(10));
+  // };
+  useEffect(() => {
+    dispatch(getUsers(10));
+  }, [dispatch]);
 
-  const users = usersState?.response?.results;
-  const isLoading = usersState.status;
-  console.log(users);
   return (
     <>
       <h1>Users</h1>
-      {isLoading === "loading" ? (
-        <h2>LOADING . . . </h2>
-      ) : usersState ? (
-        users?.map((user, i) => {
-          return (
-            <div key={user.id?.value}>
-              <p>
-                {i + 1}
-                {user.name?.first} {user.name?.last}
-              </p>
-            </div>
-          );
-        })
+      {pending ? (
+        <h1>Loading ... </h1>
       ) : (
-        fetchUsersInComponent()
+        response?.map(({ name, id }) => (
+          <div key={id.value}>
+            {name.first} + {name.last}
+          </div>
+        ))
       )}
     </>
   );
