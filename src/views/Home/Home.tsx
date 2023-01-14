@@ -1,11 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-
-import { getUsers, reset } from "../../store/usersReducer/slice";
-// import {getOneUser, myOneUser} from "../../features/users/myUserSlice";
-import Heading from "../../typography/Heading/Heading";
 import Button from "../../atoms/Button/Button";
 import { AppDispatch } from "../../store";
+import { getUsers, reset } from "../../store/usersReducer/slice";
+import Heading from "../../typography/Heading/Heading";
 
 enum ButtonType {
   RESET = "reset",
@@ -16,18 +14,22 @@ enum ButtonType {
 const buttonData = [ButtonType.RESET, ButtonType.RELOAD, ButtonType.ADD];
 
 const Home = () => {
-  // const userState = useSelector(myOneUser);
+  const [counter, setCounter] = useState(1);
   const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {}, []);
+
+  const onClickAdd = () => {
+    console.log(counter);
+    setCounter((prev) => prev + 1);
+    dispatch(getUsers(10 + counter));
+  };
 
   const renderButtonAction: Record<ButtonType, () => void> = {
     [ButtonType.RESET]: () => dispatch(reset()),
     [ButtonType.RELOAD]: () => dispatch(getUsers(10)),
-    [ButtonType.ADD]: () => dispatch(getUsers(1)),
+    [ButtonType.ADD]: () => onClickAdd(),
   };
-
-  useEffect(() => {
-    // dispatch(getOneUser());
-  }, [dispatch]);
 
   return (
     <div>

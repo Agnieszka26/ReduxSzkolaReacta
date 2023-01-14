@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
 import { api } from "../../api";
 import { UserDate } from "./userType";
 

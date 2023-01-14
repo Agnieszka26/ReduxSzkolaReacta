@@ -1,18 +1,17 @@
-import { useSelector, useDispatch } from "react-redux";
-import { getUsers } from "../../store/usersReducer/slice";
-import { useAppDispatch, useAppSelector } from "../../store";
 import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { getUsers } from "../../store/usersReducer/slice";
 
 const Users = () => {
   const { response, pending } = useAppSelector((state) => state.users);
 
   const dispatch = useAppDispatch();
-  // const fetchUsersInComponent = () => {
-  //   dispatch(getUsers(10));
-  // };
+
   useEffect(() => {
-    dispatch(getUsers(10));
-  }, [dispatch]);
+    if (!response) {
+      dispatch(getUsers(10));
+    }
+  }, [dispatch, response]);
 
   return (
     <>
@@ -20,9 +19,9 @@ const Users = () => {
       {pending ? (
         <h1>Loading ... </h1>
       ) : (
-        response?.map(({ name, id }) => (
-          <div key={id.value}>
-            {name.first} + {name.last}
+        response?.map(({ name, id }, i) => (
+          <div key={id.value + i}>
+            {i + 1}. {name.first} {name.last}
           </div>
         ))
       )}

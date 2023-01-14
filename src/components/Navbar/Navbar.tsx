@@ -1,6 +1,7 @@
-import ListElement from "../../atoms/ListElement/ListElement";
-import {RoutesPath} from "../../constants";
 import List from "../../atoms/List/List";
+import ListElement from "../../atoms/ListElement/ListElement";
+import { RoutesPath } from "../../constants";
+
 const listElementData = [
   {
     link: RoutesPath.HOME,
@@ -15,7 +16,7 @@ const listElementData = [
 const Navbar = () => {
   return (
     <List>
-      {listElementData.map(({link, text}, index) => (
+      {listElementData.map(({ link, text }, index) => (
         <ListElement key={`${text}-${index}`} link={link} text={text} />
       ))}
     </List>
