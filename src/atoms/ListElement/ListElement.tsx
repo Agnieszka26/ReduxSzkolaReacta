@@ -1,13 +1,15 @@
-import {FC} from "react";
-import {Link} from "react-router-dom";
+import { FC } from "react";
+import { Link } from "react-router-dom";
+
+import styles from "./ListElement.module.scss";
 
 interface ListElementProps {
   text: string;
   link: string;
 }
-const ListElement: FC<ListElementProps> = ({text, link}) => {
+const ListElement: FC<ListElementProps> = ({ text, link }) => {
   return (
-    <li>
+    <li className={styles.li}>
       <Link to={link}>{text}</Link>
     </li>
   );

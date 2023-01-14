@@ -1,0 +1,21 @@
+$colorLight: #f2f2f2;
+$colorDark: #111;
+$colorGray: #767676;
+$dangerBright: #ff0000;
+$dangerSubdued: #ffa1a1;
+$warningBright: #ffff00;
+$warningSubdued: #ffffb1;
+$infoBright: #0066cc;
+$infoSubdued: #65b2ff;
+
+:export {
+    colorLight: $colorLight;
+    colorDark: $colorDark;
+    colorGray: $colorGray;
+    dangerBright: $dangerBright;
+    dangerSubdued: $dangerSubdued;
+    warningBright: $warningBright;
+    warningSubdued: $warningSubdued;
+    infoBright: $infoBright;
+    infoSubdued: $infoSubdued;
+}

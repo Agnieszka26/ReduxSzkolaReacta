@@ -1,0 +1,13 @@
+@import "../../assets/styles/variables/colors";
+
+.container {
+    width: 100%;
+    display: inline-block;
+    .nav {
+        overflow: hidden;
+        background-color: $colorGray;
+        position: fixed;
+        top: 0;
+        width: 100%;
+    }
+}

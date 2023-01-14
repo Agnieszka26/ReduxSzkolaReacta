@@ -4,6 +4,7 @@ import Button from "../../atoms/Button/Button";
 import { AppDispatch } from "../../store";
 import { getUsers, reset } from "../../store/usersReducer/slice";
 import Heading from "../../typography/Heading/Heading";
+import styles from "./Home.module.scss";
 
 enum ButtonType {
   RESET = "reset",
@@ -32,11 +33,13 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <Heading text="Home" />
-      {buttonData.map((buttonText) => (
-        <Button onClick={renderButtonAction[buttonText]} text={buttonText} />
-      ))}
+      <div className={styles.buttonsContainer}>
+        {buttonData.map((buttonText) => (
+          <Button onClick={renderButtonAction[buttonText]} text={buttonText} />
+        ))}
+      </div>
     </div>
   );
 };

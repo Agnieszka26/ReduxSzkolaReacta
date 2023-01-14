@@ -1,6 +1,9 @@
 import { useEffect } from "react";
+import Chip from "../../components/Chip/Chip";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { getUsers } from "../../store/usersReducer/slice";
+import Heading from "../../typography/Heading/Heading";
+import styles from "./Users.module.scss";
 
 const Users = () => {
   const { response, pending } = useAppSelector((state) => state.users);
@@ -14,18 +17,27 @@ const Users = () => {
   }, [dispatch, response]);
 
   return (
-    <>
-      <h1>Users</h1>
-      {pending ? (
-        <h1>Loading ... </h1>
-      ) : (
-        response?.map(({ name, id }, i) => (
-          <div key={id.value + i}>
-            {i + 1}. {name.first} {name.last}
-          </div>
-        ))
-      )}
-    </>
+    <div className={styles.container}>
+      <Heading text="Users" />
+      <div className={styles.box}>
+        <div>
+          {pending ? (
+            <Heading text="Loading ..." />
+          ) : (
+            response?.map(({ name, id, picture }, i) => (
+              <div key={id.value + i}>
+                {i + 1}.
+                <Chip
+                  name={name.first}
+                  surname={name.last}
+                  img={picture.thumbnail}
+                />
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 
