@@ -1,3 +1,4 @@
+import cn from "classnames";
 import { FC } from "react";
 import styles from "./Message.module.scss";
 
@@ -7,21 +8,9 @@ interface MessageProps {
 }
 
 const Message: FC<MessageProps> = ({ type, textContent }) => {
-  const typeMessage = () => {
-    switch (type) {
-      case "info":
-        return styles.info;
-      case "danger":
-        return styles.danger;
-      case "warning":
-        return styles.warning;
-      default:
-        return styles.default;
-    }
-  };
   return (
     <>
-      <div className={typeMessage()}>
+      <div className={cn(styles.container, styles[`hasType-${type}`])}>
         <h1>{type}</h1>
         <p>{textContent}</p>
       </div>

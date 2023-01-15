@@ -1,17 +1,43 @@
-.danger {
-    border: 1px solid #ff0000;
-    background-color: rgb(255, 161, 161);
-}
-.info {
-    border: 1px solid #0000ff;
-    background-color: rgb(115, 115, 255);
-}
-.warning {
-    border: 1px solid #ffff00;
-    background-color: rgb(255, 255, 177);
-}
+@import "../../assets//styles/variables/colors";
 
-.default {
-    border: 1px solid rgb(0, 0, 0);
-    background-color: rgb(98, 98, 98);
+.container {
+    // display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: auto;
+    padding: 10px;
+    margin: 10px;
+    line-height: 1.8;
+    border-radius: 5px;
+    font-family: sans-serif;
+    font-weight: 400;
+    width: 400px;
+
+    &.hasType {
+        &-danger {
+            border: 1px solid $dangerBright;
+            background-color: $dangerSubdued;
+            display: block;
+        }
+
+        &-info {
+            border: 1px solid $infoBright;
+            background-color: $infoSubdued;
+            display: block;
+        }
+        &-warning {
+            border: 1px solid $warningBright;
+            background-color: $warningSubdued;
+            display: block;
+        }
+
+        &-default {
+            border: 1px solid $colorDark;
+            background-color: $colorGray;
+            display: block;
+        }
+    }
 }
