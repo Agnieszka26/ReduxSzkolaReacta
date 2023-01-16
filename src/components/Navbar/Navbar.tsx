@@ -12,6 +12,10 @@ const listElementData = [
     link: RoutesPath.USERS,
     text: "Users",
   },
+  {
+    link: RoutesPath.CONTACT,
+    text: "Contact",
+  },
 ];
 
 const Navbar = () => {

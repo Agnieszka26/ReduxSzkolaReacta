@@ -65,7 +65,11 @@ const Home = () => {
       <Heading text="Home" />
       <div className={styles.buttonsContainer}>
         {buttonData.map((buttonText) => (
-          <Button onClick={renderButtonAction[buttonText]} text={buttonText} />
+          <Button
+            onClick={renderButtonAction[buttonText]}
+            text={buttonText}
+            key={buttonText}
+          />
         ))}
       </div>
       {displayMessage ? <Message type={type} textContent={message} /> : null}
