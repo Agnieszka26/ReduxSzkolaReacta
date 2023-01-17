@@ -32,6 +32,9 @@ const Message: FC<MessageProps> = ({ type, textContent }) => {
       <div className={cn(styles.container, styles[`hasType-${type}`])}>
         <h1>{type}</h1>
         <p>{textContent}</p>
+        <button className={styles.button} onClick={() => dispatch(close())}>
+          x
+        </button>
       </div>
     </>
   );
