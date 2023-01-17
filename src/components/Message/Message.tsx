@@ -1,5 +1,7 @@
 import cn from "classnames";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { close } from "../../store/messageReducer/slice";
 import styles from "./Message.module.scss";
 
 interface MessageProps {
@@ -8,20 +10,20 @@ interface MessageProps {
 }
 
 const Message: FC<MessageProps> = ({ type, textContent }) => {
-  const [show, setShow] = useState(true);
+  const { isOpen } = useAppSelector((state) => state.message);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const timeId = setTimeout(() => {
-      // After 3 seconds set the show value to false
-      setShow(false);
+      dispatch(close());
     }, 3000);
 
     return () => {
       clearTimeout(timeId);
     };
-  }, []);
+  }, [dispatch]);
 
-  if (!show) {
+  if (!isOpen) {
     return null;
   }
 

@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import messageReducer from "../store/messageReducer/slice";
 import usersReducer from "../store/usersReducer/slice";
 
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
@@ -7,6 +8,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 const store = configureStore({
   reducer: {
     users: usersReducer,
+    message: messageReducer,
   },
 });
 

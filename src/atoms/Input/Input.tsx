@@ -10,7 +10,6 @@ interface InputProps {
 }
 
 const Input: FC<InputProps> = ({ register, placeholder, isError }) => {
-  console.log("isError  import ", isError?.type);
   return (
     <input
       className={cn(styles.input, styles[`hasError-${isError?.type}`])}

@@ -1,10 +1,12 @@
 import axios from "axios";
-import { FC, useState } from "react";
+import { FC, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "../../atoms/Button/Button";
 import Error from "../../atoms/Error/Error";
 import Input from "../../atoms/Input/Input";
 import Label from "../../atoms/Label/Label";
+import { useAppDispatch, useAppSelector } from "../../store";
+import { setDanger, setInfo } from "../../store/messageReducer/slice";
 import Message from "../Message/Message";
 import styles from "./Form.module.scss";
 
@@ -14,7 +16,11 @@ interface IFormInput {
   telephone: number;
 }
 const Form: FC = () => {
-  const [isMessage, setIsMessage] = useState(false);
+  const { isOpen, type, textContent } = useAppSelector(
+    (state) => state.message
+  );
+
+  const dispatch = useAppDispatch();
   const {
     register,
     formState: { errors },
@@ -27,8 +33,18 @@ const Form: FC = () => {
         "Content-Type": "application/json",
       },
     });
-    setIsMessage(true);
+    dispatch(setInfo("Thank you! You have send your details!"));
   };
+
+  useEffect(() => {
+    if (errors.firstName) {
+      dispatch(setDanger("First Name is required"));
+    } else if (errors.lastName) {
+      dispatch(setDanger("Last Name is required"));
+    } else if (errors.telephone) {
+      dispatch(setDanger("Telephone is required"));
+    }
+  }, [dispatch, errors]);
 
   return (
     <>
@@ -47,10 +63,6 @@ const Form: FC = () => {
         {errors.firstName && (
           <>
             <Error message={errors?.firstName?.message} />
-            <Message
-              type={"danger"}
-              textContent={`Some errors occurred, ${errors?.firstName?.message}`}
-            />
           </>
         )}
         <Label htmlFor={"lastName"} text={" Last Name"} />
@@ -67,10 +79,6 @@ const Form: FC = () => {
         {errors.lastName && (
           <>
             <Error message={errors?.lastName?.message} />
-            <Message
-              type={"danger"}
-              textContent={`Some errors occurred, ${errors?.lastName?.message}`}
-            />
           </>
         )}
 
@@ -84,16 +92,12 @@ const Form: FC = () => {
         />
         {errors.telephone && (
           <>
-            <Message
-              type={"danger"}
-              textContent={`Some errors occurred, ${errors?.telephone?.message}`}
-            />
             <Error message={errors?.telephone?.message} />
           </>
         )}
         <Button onClick={handleSubmit(onSubmit)} text={"submit"} />
       </form>
-      {isMessage && <Message type={"info"} textContent={"Success! "} />}
+      {isOpen && <Message type={type} textContent={textContent} />}
     </>
   );
 };
